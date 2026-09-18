@@ -49,9 +49,7 @@ class ProductImageController extends Controller
 
         // Handle image upload
         if($request->hasFile('image_url')) {
-            $uploadedFile = Cloudinary::upload($request->file('image_url')->getRealPath(), [
-                'folder' => 'uploads/product-image',
-            ]);
+            $uploadedFile = $request->file('image_url')->storeOnCloudinary('uploads/product-image');
 
             // Ambil URL aman dan public_id untuk file yang diunggah
             $validated['image_url'] = $uploadedFile->getSecurePath(); // URL aman
