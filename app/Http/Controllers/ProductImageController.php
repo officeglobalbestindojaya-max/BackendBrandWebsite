@@ -43,7 +43,7 @@ class ProductImageController extends Controller
     {
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'image_url' => 'required',
+            'image_url' => 'required|file|mimes:jpeg,png,jpg,webp,gif',
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
