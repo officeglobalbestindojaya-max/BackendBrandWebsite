@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+<<<<<<< HEAD
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+=======
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+>>>>>>> 0ea07a0 (Fix image upload validation)
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -53,8 +58,13 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'color' => 'nullable|string|max:255',
             'finishing' => 'nullable|string|max:255',
+<<<<<<< HEAD
             'shopee_url' => 'nullable|string',
             'tokopedia_url' => 'nullable|string',
+=======
+            'shopee_url' => 'nullable|string|max:255',
+            'tokopedia_url' => 'nullable|string|max:255',
+>>>>>>> 0ea07a0 (Fix image upload validation)
             'materials' => 'nullable|array',
             'materials.*' => 'exists:materials,id',
         ]);
@@ -101,8 +111,13 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'color' => 'nullable|string|max:255',
             'finishing' => 'nullable|string|max:255',
+<<<<<<< HEAD
             'shopee_url' => 'nullable|string',
             'tokopedia_url' => 'nullable|string',
+=======
+            'shopee_url' => 'nullable|string|max:255',
+            'tokopedia_url' => 'nullable|string|max:255',
+>>>>>>> 0ea07a0 (Fix image upload validation)
             'materials' => 'nullable|array',
             'materials.*' => 'exists:materials,id',
         ]);
@@ -132,6 +147,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
+<<<<<<< HEAD
         // Delete all product images from Cloudinary
         foreach ($product->images as $image) {
             if ($image->image_url) {
@@ -165,15 +181,32 @@ class ProductController extends Controller
                 Cloudinary::destroy($publicId);
             } catch (\Exception $e) {
                 Log::error('Failed to delete size image from Cloudinary: ' . $e->getMessage());
+=======
+        // Delete all product images from storage
+        foreach ($product->images as $image) {
+            if ($image->image_url && Storage::disk('public')->exists($image->image_url)) {
+                Storage::disk('public')->delete($image->image_url);
+            }
+        }
+
+        // Delete size image from storage
+        if ($product->sizeImage && $product->sizeImage->image_url) {
+            if (Storage::disk('public')->exists($product->sizeImage->image_url)) {
+                Storage::disk('public')->delete($product->sizeImage->image_url);
+>>>>>>> 0ea07a0 (Fix image upload validation)
             }
         }
 
         $product->delete();
+<<<<<<< HEAD
 
         return response()->json([
             'success' => true,
             'message' => 'Product deleted successfully'
         ]);
+=======
+        return response()->json(['message' => 'Product deleted successfully']);
+>>>>>>> 0ea07a0 (Fix image upload validation)
     }
 
     public function filter(Request $request)
