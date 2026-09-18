@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-<<<<<<< HEAD
+
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-=======
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
->>>>>>> 0ea07a0 (Fix image upload validation)
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
